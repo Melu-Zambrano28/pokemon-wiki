@@ -1,9 +1,12 @@
 import { Box } from "@chakra-ui/layout";
+import { Center, Heading } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { Pokemon } from "./components/PokemonCard/PokemonCard";
 import { PokemonContainer } from "./components/PokemonContainer/PokemonContainer";
 
-const POKE_API_URL = "https://pokeapi.co/api/v2/pokemon";
+const POKE_API_URL = `${process.env.NEXT_PUBLIC_POKE_API_URL}`;
+
+console.log(`Api url pokemon: `, POKE_API_URL);
 
 type SomePokemonResponse = {
   count: number;
@@ -15,6 +18,15 @@ type SomePokemonResponse = {
 const Home: NextPage<PokemonContainer> = ({ pokemons }) => {
   return (
     <Box>
+      <Center>
+        <Heading
+          fontSize={"2xl"}
+          fontFamily={"body"}
+          textTransform="capitalize"
+        >
+          Pokemon Wiki
+        </Heading>
+      </Center>
       <PokemonContainer pokemons={pokemons} />
     </Box>
   );
@@ -37,7 +49,7 @@ const getPokemonsImage = async (
     .then((response) => response.json())
     .then((data) => ({
       name: pokemonName,
-      url: data.sprites.other.dream_world.front_default,
+      src: data.sprites.other.dream_world.front_default,
     }));
 };
 
