@@ -9,8 +9,8 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
   pokemons,
 }) => {
   return (
-    <Box>
-      <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+    <Box maxWidth="78rem" margin="0 auto">
+      <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
         {pokemons.map((pokemon, pokeIndex) => {
           return (
             <GridItem key={pokeIndex}>

@@ -1,4 +1,13 @@
-import { Box, Text, Heading } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Center,
+  Heading,
+  Image,
+  Stack,
+  styled,
+  Text,
+} from "@chakra-ui/react";
 
 export type Pokemon = {
   name: string;
@@ -7,12 +16,41 @@ export type Pokemon = {
 
 const PokemonCard: React.FunctionComponent<Pokemon> = ({ name, url }) => {
   return (
-    <Box p={5} shadow="md" borderWidth="1px">
-      <Heading fontSize="xl" textAlign="center">
-        {name}
-      </Heading>
-      <Text>{url}</Text>
-    </Box>
+    <Center py={6}>
+      <Box
+        maxW={"445px"}
+        w={"full"}
+        boxShadow={"2xl"}
+        rounded={"md"}
+        p={6}
+        overflow={"hidden"}
+      >
+        <Center
+          h={"210px"}
+          bg={"gray.100"}
+          mt={-6}
+          mx={-6}
+          mb={6}
+          pos={"relative"}
+        >
+          <Image
+            src={url}
+            h="210px"
+            objectFit="cover"
+            alt={`Pokemon name ${name}`}
+          />
+        </Center>
+        <Stack>
+          <Heading
+            fontSize={"2xl"}
+            fontFamily={"body"}
+            textTransform="capitalize"
+          >
+            {name}
+          </Heading>
+        </Stack>
+      </Box>
+    </Center>
   );
 };
 
