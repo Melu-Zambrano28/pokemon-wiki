@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import { Pokemon, PokemonCard } from "../PokemonCard/PokemonCard";
 
 type PokemonContainer = {
@@ -9,12 +9,12 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
   pokemons,
 }) => {
   return (
-    <Box maxWidth="78rem" margin="0 auto">
+    <Box margin="0 auto">
       <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
         {pokemons.map((pokemon, pokeIndex) => {
           return (
             <GridItem key={pokeIndex}>
-              <PokemonCard name={pokemon.name} url={pokemon.url} />
+              <PokemonCard name={pokemon.name} src={pokemon.src} />
             </GridItem>
           );
         })}
