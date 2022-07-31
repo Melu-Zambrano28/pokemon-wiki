@@ -1,3 +1,4 @@
+import { Box, Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { GetServerSideProps, NextPage } from 'next'
 import { PokemonCard } from '../components/PokemonCard/PokemonCard'
 
@@ -13,6 +14,12 @@ type PokemonWiki = {
     front_female: string
     front_shiny: string
     front_shiny_female: string
+    other: {
+      dream_world: {
+        front_default: string
+        front_female: string
+      }
+    }
   }
 }
 
@@ -49,7 +56,66 @@ export const getServerSideProps: GetServerSideProps<
 }
 
 const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
-  return <PokemonCard name={name} src={sprites.front_default} />
+  return (
+    <>
+      <Grid
+        templateAreas={`"header header"
+                  "nav main"
+                  "nav footer"`}
+        gridTemplateRows={'auto 1fr auto'}
+        gridTemplateColumns={'445px 1fr'}
+        gap="1"
+        color="blackAlpha.700"
+        fontWeight="bold"
+        maxH="100vh"
+      >
+        <GridItem pl="2" bg="" area={'header'}>
+          {name}
+        </GridItem>
+        <GridItem pl="2" area={'nav'}>
+          <PokemonCard
+            name={name}
+            src={sprites.other.dream_world.front_default}
+          />
+
+          <SimpleGrid columns={2} spacing={10}>
+            {sprites.other.dream_world.front_female && (
+              <Box>
+                <PokemonCard
+                  name={`${name} Female`}
+                  src={sprites.other.dream_world.front_female}
+                />
+              </Box>
+            )}
+
+            {sprites.front_shiny && (
+              <Box>
+                <PokemonCard
+                  name={`${name} Front Shiny`}
+                  src={sprites.front_shiny}
+                />
+              </Box>
+            )}
+
+            {sprites.back_shiny && (
+              <Box>
+                <PokemonCard
+                  name={`${name} Back Shiny`}
+                  src={sprites.back_shiny}
+                />
+              </Box>
+            )}
+          </SimpleGrid>
+        </GridItem>
+        <GridItem pl="2" area={'main'}>
+          Main
+        </GridItem>
+        <GridItem pl="2" area={'footer'}>
+          Footer
+        </GridItem>
+      </Grid>
+    </>
+  )
 }
 
 export default PokemonWiki
