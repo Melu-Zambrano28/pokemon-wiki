@@ -74,16 +74,16 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
         </GridItem>
         <GridItem pl="2" area={'nav'}>
           <PokemonCard
-            name={name}
-            src={sprites.other.dream_world.front_default}
+            pokemonName={name}
+            pokemonSrc={sprites.other.dream_world.front_default}
           />
 
           <SimpleGrid columns={2} spacing={10}>
             {sprites.other.dream_world.front_female && (
               <Box>
                 <PokemonCard
-                  name={`${name} Female`}
-                  src={sprites.other.dream_world.front_female}
+                  pokemonName={`${name} Female`}
+                  pokemonSrc={sprites.other.dream_world.front_female}
                 />
               </Box>
             )}
@@ -91,8 +91,8 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
             {sprites.front_shiny && (
               <Box>
                 <PokemonCard
-                  name={`${name} Front Shiny`}
-                  src={sprites.front_shiny}
+                  pokemonName={`${name} Front Shiny`}
+                  pokemonSrc={sprites.front_shiny}
                 />
               </Box>
             )}
@@ -100,8 +100,8 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
             {sprites.back_shiny && (
               <Box>
                 <PokemonCard
-                  name={`${name} Back Shiny`}
-                  src={sprites.back_shiny}
+                  pokemonName={`${name} Back Shiny`}
+                  pokemonSrc={sprites.back_shiny}
                 />
               </Box>
             )}

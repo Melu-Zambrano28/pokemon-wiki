@@ -48,8 +48,8 @@ const getPokemonsImage = async (
   return fetch(url)
     .then((response) => response.json())
     .then((data) => ({
-      name: pokemonName,
-      src: data.sprites.other.dream_world.front_default,
+      pokemonName: pokemonName,
+      pokemonSrc: data.sprites.other.dream_world.front_default,
     }))
 }
 
