@@ -2,12 +2,14 @@ import { Box, Center, Heading, Image, Stack } from '@chakra-ui/react'
 
 export type Pokemon = {
   pokemonName: string
-  pokemonSrc: string
+  pokemonImage: string
+  cardColor?: string
 }
 
 const PokemonCard: React.FunctionComponent<Pokemon> = ({
   pokemonName,
-  pokemonSrc,
+  pokemonImage,
+  cardColor,
 }) => {
   return (
     <Center py={6}>
@@ -21,14 +23,14 @@ const PokemonCard: React.FunctionComponent<Pokemon> = ({
       >
         <Center
           h={'210px'}
-          bg={'gray.100'}
+          bg={cardColor ? cardColor : `white.100`}
           mt={-6}
           mx={-6}
           mb={6}
           pos={'relative'}
         >
           <Image
-            src={pokemonSrc}
+            src={pokemonImage}
             h="210px"
             objectFit="cover"
             alt={`Pokemon name ${pokemonName}`}

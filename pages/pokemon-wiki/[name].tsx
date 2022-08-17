@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { GetServerSideProps, NextPage } from 'next'
+import { getBGColorByPokemonType } from '../../utils/fnUtils'
 import { PokemonCard } from '../components/PokemonCard/PokemonCard'
 
 type PokemonWiki = {
@@ -21,10 +22,19 @@ type PokemonWiki = {
       }
     }
   }
+  types: PokemonType[]
 }
 
 type PokemonWikiQuery = {
   name: string
+}
+
+export type PokemonType = {
+  slot: number
+  type: {
+    name: string
+    url: string
+  }
 }
 
 const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
@@ -35,6 +45,7 @@ const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
       abilities: data.abilities,
       location_area_encounters: data.location_area_encounters,
       sprites: data.sprites,
+      types: data.types,
     }))
 }
 
@@ -51,11 +62,15 @@ export const getServerSideProps: GetServerSideProps<
       name: pokemon.name,
       location_area_encounters: pokemon.location_area_encounters,
       sprites: pokemon.sprites,
+      types: pokemon.types,
     },
   }
 }
 
-const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
+const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
+  const color = getBGColorByPokemonType(types)
+  console.log(`PokemonWiki `, color)
+
   return (
     <>
       <Grid
@@ -75,15 +90,16 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
         <GridItem pl="2" area={'nav'}>
           <PokemonCard
             pokemonName={name}
-            pokemonSrc={sprites.other.dream_world.front_default}
+            pokemonImage={sprites.other.dream_world.front_default}
+            cardColor={color}
           />
 
           <SimpleGrid columns={2} spacing={10}>
             {sprites.other.dream_world.front_female && (
               <Box>
                 <PokemonCard
-                  pokemonName={`${name} Female`}
-                  pokemonSrc={sprites.other.dream_world.front_female}
+                  pokemonName={`Female`}
+                  pokemonImage={sprites.other.dream_world.front_female}
                 />
               </Box>
             )}
@@ -91,8 +107,9 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
             {sprites.front_shiny && (
               <Box>
                 <PokemonCard
-                  pokemonName={`${name} Front Shiny`}
-                  pokemonSrc={sprites.front_shiny}
+                  pokemonName={`Front Shiny`}
+                  pokemonImage={sprites.front_shiny}
+                  cardColor={color}
                 />
               </Box>
             )}
@@ -100,8 +117,9 @@ const PokemonWiki: NextPage<PokemonWiki> = ({ name, sprites }) => {
             {sprites.back_shiny && (
               <Box>
                 <PokemonCard
-                  pokemonName={`${name} Back Shiny`}
-                  pokemonSrc={sprites.back_shiny}
+                  pokemonName={`Back Shiny`}
+                  pokemonImage={sprites.back_shiny}
+                  cardColor={color}
                 />
               </Box>
             )}

@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/layout'
 import { Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
+import { getBGColorByPokemonType } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import { Pokemon } from './components/PokemonCard/PokemonCard'
 import { PokemonContainer } from './components/PokemonContainer/PokemonContainer'
@@ -49,7 +50,8 @@ const getPokemonsImage = async (
     .then((response) => response.json())
     .then((data) => ({
       pokemonName: pokemonName,
-      pokemonSrc: data.sprites.other.dream_world.front_default,
+      pokemonImage: data.sprites.other.dream_world.front_default,
+      cardColor: getBGColorByPokemonType(data.types),
     }))
 }
 

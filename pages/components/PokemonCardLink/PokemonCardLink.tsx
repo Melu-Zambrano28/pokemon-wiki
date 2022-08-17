@@ -6,12 +6,17 @@ type PokemonCardLinkComponent = Pokemon & LinkProps
 
 const PokemonCardLink: React.FunctionComponent<PokemonCardLinkComponent> = ({
   pokemonName,
-  pokemonSrc,
+  pokemonImage,
+  cardColor,
   href,
 }) => {
   return (
     <LinkBox>
-      <PokemonCard pokemonName={pokemonName} pokemonSrc={pokemonSrc} />
+      <PokemonCard
+        pokemonName={pokemonName}
+        pokemonImage={pokemonImage}
+        cardColor={cardColor}
+      />
       <Link href={href}>
         <LinkOverlay />
       </Link>

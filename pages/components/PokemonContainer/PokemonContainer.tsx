@@ -17,7 +17,8 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
             <GridItem key={pokeIndex}>
               <PokemonCardLink
                 pokemonName={pokemon.pokemonName}
-                pokemonSrc={pokemon.pokemonSrc}
+                pokemonImage={pokemon.pokemonImage}
+                cardColor={pokemon.cardColor}
                 href={{
                   pathname: '/pokemon-wiki/[name]',
                   query: { name: pokemon.pokemonName },
