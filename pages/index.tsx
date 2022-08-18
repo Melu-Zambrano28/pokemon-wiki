@@ -3,19 +3,14 @@ import { Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
 import { getBGColorByPokemonType } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
-import { PokemonCardProp } from './components/PokemonCard/PokemonCard'
+import reporter from 'io-ts-reporters'
+import {
+  PokemonCardProp,
+  PokemonSideProp,
+  PokemonWiki,
+  SomePokemonResponse,
+} from '../utils/Types'
 import { PokemonContainer } from './components/PokemonContainer/PokemonContainer'
-
-type SomePokemonResponse = {
-  count: number
-  next: string | null
-  previous: string | null
-  results: { name: string; url: string }[]
-}
-
-type PokemonSideProp = {
-  pokemons: PokemonCardProp[]
-}
 
 const Home: NextPage<PokemonContainer> = ({ pokemons }) => {
   return (
@@ -42,36 +37,43 @@ const getSomePokemon = async (
     (response) => response.json(),
   )
 
-const getPokemonsImage = async (
+const getPokemonCards = async (
   pokemonName: string,
   url: string,
 ): Promise<PokemonCardProp> => {
   return fetch(url)
     .then((response) => response.json())
-    .then((data) => ({
-      pokemonData: {
-        pokemonName: pokemonName,
-        pokemonDescription: '',
-        pokemonType: data.types ? data.types : [],
-      },
-      cardConfig: {
-        cardAltImage: pokemonName,
-        cardColor: getBGColorByPokemonType(data.types),
-        cardImage: data.sprites.other.dream_world.front_default,
-      },
-    }))
+    .then((data) => {
+      if (!PokemonWiki.is(data)) {
+        console.log(reporter.report(PokemonWiki.decode(data)))
+        throw new Error('error')
+      }
+
+      return {
+        pokemonData: {
+          pokemonName: pokemonName,
+          pokemonDescription: '',
+          pokemonType: data.types ?? [],
+        },
+        cardConfig: {
+          cardAltImage: pokemonName,
+          cardColor: getBGColorByPokemonType(data.types),
+          cardImage: data.sprites.other.dream_world.front_default,
+        },
+      }
+    })
 }
 
 export const getServerSideProps: GetStaticProps<PokemonSideProp> = async () => {
   const somePokemons = await getSomePokemon(20, 0)
-  const promiseOfPokemonsDetails = somePokemons.results.map((pokemon) =>
-    getPokemonsImage(pokemon.name, pokemon.url),
+  const pokemons = somePokemons.results.map((pokemon) =>
+    getPokemonCards(pokemon.name, pokemon.url),
   )
-  const pokemonsDetail = await Promise.all(promiseOfPokemonsDetails)
+  const pokemonCards = await Promise.all(pokemons)
 
   return {
     props: {
-      pokemons: pokemonsDetail,
+      pokemons: pokemonCards,
     },
   }
 }

@@ -1,6 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react'
-import { PokemonCardProp } from '../PokemonCard/PokemonCard'
-
+import { PokemonCardProp } from '../../../utils/Types'
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
 
 type PokemonContainer = {

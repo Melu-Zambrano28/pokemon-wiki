@@ -1,4 +1,4 @@
-import { PokemonType } from '../pages/pokemon-wiki/[name]'
+import { PokemonType } from './Types'
 
 const pokemonTypeAndColor = new Map<string, string>()
 pokemonTypeAndColor.set('NORMAL', 'yellow.900')
@@ -37,10 +37,7 @@ const getBGColor = () => {
 
 const getBGColorByPokemonType = (pokemonTypes: ReadonlyArray<PokemonType>) => {
   const colors = pokemonTypes.map((pokemonType) => {
-    const typeUpper = pokemonType.type.name
-      ? pokemonType.type.name.toLocaleUpperCase()
-      : ''
-    return pokemonTypeAndColor.get(typeUpper)
+    return pokemonTypeAndColor.get(pokemonType.type.name.toLocaleUpperCase())
   })
 
   return colors[0] ? colors[0] : ''
