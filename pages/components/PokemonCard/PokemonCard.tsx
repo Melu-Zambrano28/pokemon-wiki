@@ -1,16 +1,26 @@
 import { Box, Center, Heading, Image, Stack } from '@chakra-ui/react'
+import React, { PropsWithChildren } from 'react'
 
-export type Pokemon = {
+export type PokemonCardProp = {
+  pokemonData: PokemonProps
+  cardConfig: CardProps
+}
+
+export type PokemonProps = {
   pokemonName: string
-  pokemonImage: string
+  pokemonDescription?: string
+  pokemonType?: string[]
+}
+
+type CardProps = {
+  cardImage: string
+  cardAltImage: string
   cardColor?: string
 }
 
-const PokemonCard: React.FunctionComponent<Pokemon> = ({
-  pokemonName,
-  pokemonImage,
-  cardColor,
-}) => {
+const PokemonCard: React.FunctionComponent<
+  PropsWithChildren<PokemonCardProp>
+> = ({ pokemonData, cardConfig, children }) => {
   return (
     <Center py={6}>
       <Box
@@ -23,17 +33,17 @@ const PokemonCard: React.FunctionComponent<Pokemon> = ({
       >
         <Center
           h={'210px'}
-          bg={cardColor ? cardColor : `white.100`}
+          bg={cardConfig.cardColor ? cardConfig.cardColor : `white.100`}
           mt={-6}
           mx={-6}
           mb={6}
           pos={'relative'}
         >
           <Image
-            src={pokemonImage}
+            src={cardConfig.cardImage}
             h="210px"
             objectFit="cover"
-            alt={`Pokemon name ${pokemonName}`}
+            alt={cardConfig.cardAltImage}
           />
         </Center>
         <Stack>
@@ -42,7 +52,7 @@ const PokemonCard: React.FunctionComponent<Pokemon> = ({
             fontFamily={'body'}
             textTransform="capitalize"
           >
-            {pokemonName}
+            {children}
           </Heading>
         </Stack>
       </Box>

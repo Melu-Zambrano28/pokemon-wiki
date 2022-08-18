@@ -1,22 +1,17 @@
 import { LinkBox, LinkOverlay } from '@chakra-ui/react'
 import Link, { LinkProps } from 'next/link'
-import { Pokemon, PokemonCard } from '../PokemonCard/PokemonCard'
+import { PokemonCard, PokemonCardProp } from '../PokemonCard/PokemonCard'
 
-type PokemonCardLinkComponent = Pokemon & LinkProps
+type PokemonCardLinkComponent = PokemonCardProp & LinkProps
 
 const PokemonCardLink: React.FunctionComponent<PokemonCardLinkComponent> = ({
-  pokemonName,
-  pokemonImage,
-  cardColor,
+  pokemonData,
+  cardConfig,
   href,
 }) => {
   return (
     <LinkBox>
-      <PokemonCard
-        pokemonName={pokemonName}
-        pokemonImage={pokemonImage}
-        cardColor={cardColor}
-      />
+      <PokemonCard pokemonData={pokemonData} cardConfig={cardConfig} />
       <Link href={href}>
         <LinkOverlay />
       </Link>

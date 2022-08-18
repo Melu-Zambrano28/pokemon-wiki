@@ -1,9 +1,10 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react'
-import { Pokemon } from '../PokemonCard/PokemonCard'
+import { PokemonCardProp } from '../PokemonCard/PokemonCard'
+
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
 
 type PokemonContainer = {
-  pokemons: Pokemon[]
+  pokemons: PokemonCardProp[]
 }
 
 const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
@@ -16,13 +17,12 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
           return (
             <GridItem key={pokeIndex}>
               <PokemonCardLink
-                pokemonName={pokemon.pokemonName}
-                pokemonImage={pokemon.pokemonImage}
-                cardColor={pokemon.cardColor}
                 href={{
                   pathname: '/pokemon-wiki/[name]',
-                  query: { name: pokemon.pokemonName },
+                  query: { name: pokemon.pokemonData.pokemonName },
                 }}
+                pokemonData={pokemon.pokemonData}
+                cardConfig={pokemon.cardConfig}
               />
             </GridItem>
           )

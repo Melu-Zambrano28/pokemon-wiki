@@ -3,7 +3,7 @@ import { Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
 import { getBGColorByPokemonType } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
-import { Pokemon } from './components/PokemonCard/PokemonCard'
+import { PokemonCardProp } from './components/PokemonCard/PokemonCard'
 import { PokemonContainer } from './components/PokemonContainer/PokemonContainer'
 
 type SomePokemonResponse = {
@@ -14,7 +14,7 @@ type SomePokemonResponse = {
 }
 
 type PokemonSideProp = {
-  pokemons: Pokemon[]
+  pokemons: PokemonCardProp[]
 }
 
 const Home: NextPage<PokemonContainer> = ({ pokemons }) => {
@@ -45,13 +45,20 @@ const getSomePokemon = async (
 const getPokemonsImage = async (
   pokemonName: string,
   url: string,
-): Promise<Pokemon> => {
+): Promise<PokemonCardProp> => {
   return fetch(url)
     .then((response) => response.json())
     .then((data) => ({
-      pokemonName: pokemonName,
-      pokemonImage: data.sprites.other.dream_world.front_default,
-      cardColor: getBGColorByPokemonType(data.types),
+      pokemonData: {
+        pokemonName: pokemonName,
+        pokemonDescription: '',
+        pokemonType: data.types ? data.types : [],
+      },
+      cardConfig: {
+        cardAltImage: pokemonName,
+        cardColor: getBGColorByPokemonType(data.types),
+        cardImage: data.sprites.other.dream_world.front_default,
+      },
     }))
 }
 
