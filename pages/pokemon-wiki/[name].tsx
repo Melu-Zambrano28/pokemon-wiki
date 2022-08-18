@@ -8,11 +8,12 @@ const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
   return fetch(`${process.env['NEXT_PUBLIC_POKE_API_URL']}/${pokemonName}`)
     .then((response) => response.json())
     .then((data) => ({
+      id: data.id,
       name: data.name,
       abilities: data.abilities,
       location_area_encounters: data.location_area_encounters,
       sprites: data.sprites,
-      types: data.types,
+      types: data.types ?? [],
     }))
 }
 
@@ -29,10 +30,16 @@ export const getServerSideProps: GetServerSideProps<
   }
 }
 
-const PokemonWikiPage: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
+const PokemonWikiPage: NextPage<PokemonWiki> = ({
+  id,
+  name,
+  sprites,
+  types,
+}) => {
   const color = getBGColorByPokemonType(types)
 
   const pokemonData = {
+    pokemonId: id,
     pokemonName: name,
     pokemonDescription: '',
     pokemonType: [],
@@ -62,7 +69,9 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
               cardAltImage: name,
               cardColor: color,
             }}
-          />
+          >
+            {`${pokemonData.pokemonId}.${pokemonData.pokemonName}`}
+          </PokemonCard>
 
           <SimpleGrid columns={2} spacing={10}>
             {sprites.front_female && (
@@ -74,7 +83,9 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
                     cardAltImage: `${name} Female`,
                     cardColor: color,
                   }}
-                />
+                >
+                  {`Female`}
+                </PokemonCard>
               </Box>
             )}
 
@@ -87,7 +98,9 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
                     cardAltImage: `${name} Front Shiny`,
                     cardColor: color,
                   }}
-                />
+                >
+                  {`Front Shiny`}
+                </PokemonCard>
               </Box>
             )}
 
@@ -100,7 +113,9 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({ name, sprites, types }) => {
                     cardAltImage: `${name} Back Shiny`,
                     cardColor: color,
                   }}
-                />
+                >
+                  {`Back Shiny`}
+                </PokemonCard>
               </Box>
             )}
           </SimpleGrid>

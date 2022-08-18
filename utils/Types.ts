@@ -66,6 +66,7 @@ const undefinedAndNullStringCodec = t.union([t.string, t.undefined, t.null])
 
 export const PokemonWiki = t.readonly(
   t.type({
+    id: t.number,
     abilities: t.readonlyArray(Ability),
     name: t.string,
     location_area_encounters: t.string,
@@ -104,6 +105,7 @@ export type PokemonCardProp = {
 }
 
 export type PokemonProps = {
+  pokemonId: number
   pokemonName: string
   pokemonDescription?: string
   pokemonType?: ReadonlyArray<PokemonType>

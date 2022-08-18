@@ -43,4 +43,8 @@ const getBGColorByPokemonType = (pokemonTypes: ReadonlyArray<PokemonType>) => {
   return colors[0] ? colors[0] : ''
 }
 
-export { getBGColor, getBGColorByPokemonType }
+const getTypesColorbyPokemonType = (pokemonType: string) => {
+  return pokemonTypeAndColor.get(pokemonType.toLocaleUpperCase())
+}
+
+export { getBGColor, getBGColorByPokemonType, getTypesColorbyPokemonType }

@@ -51,8 +51,8 @@ const getPokemonCards = async (
 
       return {
         pokemonData: {
+          pokemonId: data.id,
           pokemonName: pokemonName,
-          pokemonDescription: '',
           pokemonType: data.types ?? [],
         },
         cardConfig: {

@@ -1,4 +1,6 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react'
+import { Badge, Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { getTypesColorbyPokemonType } from '../../../utils/fnUtils'
+
 import { PokemonCardProp } from '../../../utils/Types'
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
 
@@ -22,7 +24,32 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
                 }}
                 pokemonData={pokemon.pokemonData}
                 cardConfig={pokemon.cardConfig}
-              />
+              >
+                <Box>
+                  <Heading size="xs">{pokemon.pokemonData.pokemonId}</Heading>
+                  <Flex
+                    justifyContent="space-between"
+                    alignItems="center"
+                    gap={2}
+                  >
+                    <Box>{pokemon.pokemonData.pokemonName}</Box>
+                    <Box>
+                      <Flex gap={1}>
+                        {pokemon.pokemonData.pokemonType?.map((pokemonType) => {
+                          const colorBadge = getTypesColorbyPokemonType(
+                            pokemonType.type.name,
+                          )
+                          return (
+                            <Badge bg={colorBadge} color="white">
+                              {pokemonType.type.name}
+                            </Badge>
+                          )
+                        })}
+                      </Flex>
+                    </Box>
+                  </Flex>
+                </Box>
+              </PokemonCardLink>
             </GridItem>
           )
         })}
