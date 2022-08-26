@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/layout'
-import { Center, Heading } from '@chakra-ui/react'
+import { Button, Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
 import { getBGColorByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
@@ -101,26 +101,36 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
   ) : status === 'error' ? (
     <p>Error: {JSON.stringify(error)}</p>
   ) : (
-    <>
+    <Box>
+      <Center margin="2rem">
+        <Heading
+          fontSize={'2xl'}
+          fontFamily={'body'}
+          textTransform="capitalize"
+        >
+          Pokemon Wiki
+        </Heading>
+      </Center>
       {data?.pages.map((somePokemon, i) => (
         <React.Fragment key={i}>
           <PokemonContainer pokemons={somePokemon.allPokemons} />
         </React.Fragment>
       ))}
-      <div>
-        <button
+      <Center marginTop="1rem" marginBottom="2rem">
+        <Button
+          isLoading={isFetchingNextPage}
+          loadingText="Loading more..."
+          colorScheme="teal"
+          variant="outline"
+          spinnerPlacement="start"
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
         >
-          {isFetchingNextPage
-            ? 'Loading more...'
-            : hasNextPage
-            ? 'Load More'
-            : 'Nothing more to load'}
-        </button>
-      </div>
+          {hasNextPage ? 'Load More Pokemons' : 'Nothing more to load'}
+        </Button>
+      </Center>
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
-    </>
+    </Box>
   )
 }
 
