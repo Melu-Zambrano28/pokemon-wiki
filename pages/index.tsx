@@ -1,41 +1,60 @@
 import { Box } from '@chakra-ui/layout'
 import { Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
-import { getBGColorByPokemonType } from '../utils/fnUtils'
+import { getBGColorByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import reporter from 'io-ts-reporters'
 import {
   PokemonCardProp,
   PokemonSideProp,
+  PokemonsResponse,
   PokemonWiki,
   SomePokemonResponse,
 } from '../utils/Types'
-import { PokemonContainer } from './components/PokemonContainer/PokemonContainer'
+import { PokemonContainer } from '../components/PokemonContainer/PokemonContainer'
+import { FC } from 'react'
+import React from 'react'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
-const Home: NextPage<PokemonContainer> = ({ pokemons }) => {
-  return (
-    <Box>
-      <Center>
-        <Heading
-          fontSize={'2xl'}
-          fontFamily={'body'}
-          textTransform="capitalize"
-        >
-          Pokemon Wiki
-        </Heading>
-      </Center>
-      <PokemonContainer pokemons={pokemons} />
-    </Box>
-  )
+const getSomePokemon =
+  (limit: number) =>
+  ({ pageParam = 0 }: { pageParam?: number }): Promise<SomePokemonResponse> =>
+    fetch(`${ProjectEnv.pokemonAPI}?limit=${limit}&offset=${pageParam}`).then(
+      (response) => response.json(),
+    )
+const getNextNPageFromResponse = (lastPage: SomePokemonResponse): number => {
+  const getQueryParams = lastPage.next ? lastPage.next.split('?')[1] : undefined
+  const instanceQp = getQueryParams
+    ? new URLSearchParams(getQueryParams).get('offset')
+    : null
+  return instanceQp != null ? parseInt(instanceQp) : 0
 }
 
-const getSomePokemon = async (
-  limit: number,
-  offset: number,
-): Promise<SomePokemonResponse> =>
-  fetch(`${ProjectEnv.pokemonAPI}?limit=${limit}&offset=${offset}`).then(
-    (response) => response.json(),
-  )
+const getPokemons =
+  (limit: number) =>
+  async ({
+    pageParam = 0,
+  }: {
+    pageParam?: number
+  }): Promise<PokemonsResponse> => {
+    const somePokemonsResponse = await fetch(
+      `${ProjectEnv.pokemonAPI}?limit=${limit}&offset=${pageParam}`,
+    )
+    const somePokemonsResponseJson: SomePokemonResponse =
+      await somePokemonsResponse.json()
+
+    const numNextPage = getNextNPageFromResponse(somePokemonsResponseJson)
+
+    const promisePokemonCards = somePokemonsResponseJson.results.map(
+      (pokemon) => getPokemonCards(pokemon.name, pokemon.url),
+    )
+    const pokemonCards = await Promise.all(promisePokemonCards)
+
+    return {
+      numNextPokemonPage: numNextPage,
+      allPokemons: pokemonCards,
+    }
+  }
 
 const getPokemonCards = async (
   pokemonName: string,
@@ -57,25 +76,52 @@ const getPokemonCards = async (
         },
         cardConfig: {
           cardAltImage: pokemonName,
-          cardColor: getBGColorByPokemonType(data.types),
+          cardColor: getBGColorByPokemonTypes(data.types),
           cardImage: data.sprites.other.dream_world.front_default,
         },
       }
     })
 }
 
-export const getServerSideProps: GetStaticProps<PokemonSideProp> = async () => {
-  const somePokemons = await getSomePokemon(20, 0)
-  const pokemons = somePokemons.results.map((pokemon) =>
-    getPokemonCards(pokemon.name, pokemon.url),
-  )
-  const pokemonCards = await Promise.all(pokemons)
+const Home: FC<PokemonContainer> = ({ pokemons }) => {
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery(['pokemons'], getPokemons(6), {
+    getNextPageParam: (lastPage, pages) => lastPage.numNextPokemonPage,
+  })
 
-  return {
-    props: {
-      pokemons: pokemonCards,
-    },
-  }
+  return status === 'loading' ? (
+    <p>Loading...</p>
+  ) : status === 'error' ? (
+    <p>Error: {JSON.stringify(error)}</p>
+  ) : (
+    <>
+      {data?.pages.map((somePokemon, i) => (
+        <React.Fragment key={i}>
+          <PokemonContainer pokemons={somePokemon.allPokemons} />
+        </React.Fragment>
+      ))}
+      <div>
+        <button
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          {isFetchingNextPage
+            ? 'Loading more...'
+            : hasNextPage
+            ? 'Load More'
+            : 'Nothing more to load'}
+        </button>
+      </div>
+      <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
+    </>
+  )
 }
 
 export default Home

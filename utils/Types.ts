@@ -127,3 +127,8 @@ export type SomePokemonResponse = {
 export type PokemonSideProp = {
   pokemons: PokemonCardProp[]
 }
+
+export type PokemonsResponse = {
+  numNextPokemonPage: number
+  allPokemons: PokemonCardProp[]
+}

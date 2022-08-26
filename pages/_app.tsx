@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const theme = extendTheme({
   colors: {
@@ -37,11 +38,15 @@ const theme = extendTheme({
   },
 })
 
+const queryClient = new QueryClient()
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </QueryClientProvider>
   )
 }
 

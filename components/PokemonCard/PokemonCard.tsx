@@ -1,6 +1,6 @@
 import { Box, Center, Heading, Image, Stack } from '@chakra-ui/react'
 import React, { PropsWithChildren } from 'react'
-import { PokemonCardProp } from '../../../utils/Types'
+import { PokemonCardProp } from '../../utils/Types'
 
 const PokemonCard: React.FunctionComponent<
   PropsWithChildren<PokemonCardProp>
