@@ -35,7 +35,7 @@ const getBGColor = () => {
   return colors[Math.floor(Math.random() * colors.length)]
 }
 
-const getBGColorByPokemonType = (pokemonTypes: ReadonlyArray<PokemonType>) => {
+const getBGColorByPokemonTypes = (pokemonTypes: ReadonlyArray<PokemonType>) => {
   const colors = pokemonTypes.map((pokemonType) => {
     return pokemonTypeAndColor.get(pokemonType.type.name.toLocaleUpperCase())
   })
@@ -43,8 +43,8 @@ const getBGColorByPokemonType = (pokemonTypes: ReadonlyArray<PokemonType>) => {
   return colors[0] ? colors[0] : ''
 }
 
-const getTypesColorbyPokemonType = (pokemonType: string) => {
+const getBGColorByPokemonType = (pokemonType: string) => {
   return pokemonTypeAndColor.get(pokemonType.toLocaleUpperCase())
 }
 
-export { getBGColor, getBGColorByPokemonType, getTypesColorbyPokemonType }
+export { getBGColor, getBGColorByPokemonTypes, getBGColorByPokemonType }

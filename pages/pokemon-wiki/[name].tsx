@@ -1,7 +1,8 @@
 import { Box, Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { GetServerSideProps, NextPage } from 'next'
-import { getBGColorByPokemonType } from '../../utils/fnUtils'
-import { PokemonCard } from '../components/PokemonCard/PokemonCard'
+import { PokemonCard } from '../../components/PokemonCard/PokemonCard'
+import { getBGColorByPokemonTypes } from '../../utils/fnUtils'
+
 import { PokemonWiki, PokemonWikiQuery } from '../../utils/Types'
 
 const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
@@ -36,7 +37,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
   sprites,
   types,
 }) => {
-  const color = getBGColorByPokemonType(types)
+  const color = getBGColorByPokemonTypes(types)
 
   const pokemonData = {
     pokemonId: id,
