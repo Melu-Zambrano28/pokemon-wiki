@@ -1,20 +1,19 @@
 import { Box } from '@chakra-ui/layout'
-import { Button, Center, Heading } from '@chakra-ui/react'
-import type { GetStaticProps, NextPage } from 'next'
+import { Button, Center, Heading, useControllableProp } from '@chakra-ui/react'
 import { getBGColorByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import reporter from 'io-ts-reporters'
 import {
   PokemonCardProp,
-  PokemonSideProp,
   PokemonsResponse,
   PokemonWiki,
   SomePokemonResponse,
 } from '../utils/Types'
 import { PokemonContainer } from '../components/PokemonContainer/PokemonContainer'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { useDebounce } from 'react-use'
 
 const getSomePokemon =
   (limit: number) =>
@@ -96,6 +95,22 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
     getNextPageParam: (lastPage, pages) => lastPage.numNextPokemonPage,
   })
 
+  const fetchNextPokemons = () => fetchNextPage()
+
+  const [, infiniteScroll] = useDebounce(() => fetchNextPokemons(), 20, [
+    fetchNextPokemons,
+  ])
+
+  /*useEffect(() => {
+    document.addEventListener('scroll', () => fetchNextPage())
+    return () => document.removeEventListener('scroll', () => fetchNextPage())
+  }, [fetchNextPage])*/
+
+  useEffect(() => {
+    document.addEventListener('scroll', () => infiniteScroll)
+    return () => document.removeEventListener('scroll', infiniteScroll)
+  }, [infiniteScroll])
+
   return status === 'loading' ? (
     <p>Loading...</p>
   ) : status === 'error' ? (
@@ -113,7 +128,10 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
       </Center>
       {data?.pages.map((somePokemon, i) => (
         <React.Fragment key={i}>
-          <PokemonContainer pokemons={somePokemon.allPokemons} />
+          <PokemonContainer
+            key={`pokemonContainer${i}`}
+            pokemons={somePokemon.allPokemons}
+          />
         </React.Fragment>
       ))}
       <Center marginTop="1rem" marginBottom="2rem">
