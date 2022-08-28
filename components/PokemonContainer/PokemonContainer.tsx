@@ -15,7 +15,7 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
       <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
         {pokemons.map((pokemon, pokeIndex) => {
           return (
-            <GridItem key={pokeIndex}>
+            <GridItem key={`pokemonContainerGridITem${pokeIndex}`}>
               <PokemonCardLink
                 href={{
                   pathname: '/pokemon-wiki/[name]',
@@ -24,7 +24,7 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
                 pokemonData={pokemon.pokemonData}
                 cardConfig={pokemon.cardConfig}
               >
-                <Box key={`pokemonBoxBadge${pokeIndex}`}>
+                <Box key={`pokemoncontainerBox${pokeIndex}`}>
                   <Heading size="xs">{pokemon.pokemonData.pokemonId}</Heading>
                   <Flex
                     key={`pokemonFlexContainerBadge${pokeIndex}`}
@@ -40,7 +40,11 @@ const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
                             pokemonType.type.name,
                           )
                           return (
-                            <Badge bg={colorBadge} color="white">
+                            <Badge
+                              key={`pokemonBadgeType${pokemonType.type.name}-${pokeIndex}`}
+                              bg={colorBadge}
+                              color="white"
+                            >
                               {pokemonType.type.name}
                             </Badge>
                           )
