@@ -5,7 +5,7 @@ import style from '../PokemonCard/PokemonCard.module.css'
 
 const PokemonCard: React.FunctionComponent<
   PropsWithChildren<PokemonCardProp>
-> = ({ pokemonData, cardConfig, children }) => {
+> = ({ cardConfig, children }) => {
   return (
     <div className={style['cardcontainer']}>
       <div
@@ -20,9 +20,7 @@ const PokemonCard: React.FunctionComponent<
           className={style['center']}
         />
       </div>
-      <div>
-        <div>{children}</div>
-      </div>
+      <div>{children}</div>
     </div>
   )
 }

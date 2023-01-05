@@ -1,8 +1,8 @@
-import { Grid, GridItem } from '@chakra-ui/react'
 import { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
 import { PokemonCardBody } from '../PokemonCardBody/PokemonCardBody'
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
+import style from '../PokemonContainer/PokemonContainer.module.css'
 
 type PokemonContainer = {
   pokemons: PokemonCardProp[]
@@ -11,11 +11,7 @@ type PokemonContainer = {
 const PokemonContainer: React.FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  return (
-    <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
-      {children}
-    </Grid>
-  )
+  return <div className={style['container-Grid']}>{children}</div>
 }
 
 const PokemonItems: React.FunctionComponent<PokemonContainer> = ({
@@ -25,18 +21,17 @@ const PokemonItems: React.FunctionComponent<PokemonContainer> = ({
     <>
       {pokemons.map((pokemon, pokeIndex) => {
         return (
-          <div key={`pokemonContainerGridITem${pokeIndex}`}>
-            <PokemonCardLink
-              href={{
-                pathname: '/pokemon-wiki/[name]',
-                query: { name: pokemon.pokemonData.pokemonName },
-              }}
-              pokemonData={pokemon.pokemonData}
-              cardConfig={pokemon.cardConfig}
-            >
-              <PokemonCardBody pokemonData={pokemon.pokemonData} />
-            </PokemonCardLink>
-          </div>
+          <PokemonCardLink
+            key={`pokemonContainerGridITem${pokeIndex}`}
+            href={{
+              pathname: '/pokemon-wiki/[name]',
+              query: { name: pokemon.pokemonData.pokemonName },
+            }}
+            pokemonData={pokemon.pokemonData}
+            cardConfig={pokemon.cardConfig}
+          >
+            <PokemonCardBody pokemonData={pokemon.pokemonData} />
+          </PokemonCardLink>
         )
       })}
     </>
