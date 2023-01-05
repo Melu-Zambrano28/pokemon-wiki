@@ -1,7 +1,7 @@
 import { Image } from '@chakra-ui/react'
 import React, { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
-import style from '../PokemonCard/PokemonCard.module.css'
+import style from '../PokemonCard/PokemonCard.module.scss'
 
 const PokemonCard: React.FunctionComponent<
   PropsWithChildren<PokemonCardProp>

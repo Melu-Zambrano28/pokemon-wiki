@@ -1,7 +1,7 @@
-import { Badge, Flex } from '@chakra-ui/react'
+import { Badge } from '@chakra-ui/react'
 import { getBGColorByPokemonType } from '../../utils/fnUtils'
 import { PokemonProps } from '../../utils/Types'
-import style from '../PokemonCardBody/PokemonCardBody.module.css'
+import style from '../PokemonCardBody/PokemonCardBody.module.scss'
 
 type PokemonCardBodyProp = {
   pokemonData: PokemonProps

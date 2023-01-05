@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
 import { PokemonCardBody } from '../PokemonCardBody/PokemonCardBody'
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
-import style from '../PokemonContainer/PokemonContainer.module.css'
+import style from '../PokemonContainer/PokemonContainer.module.scss'
 
 type PokemonContainer = {
   pokemons: PokemonCardProp[]
