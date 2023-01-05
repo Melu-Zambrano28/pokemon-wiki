@@ -9,7 +9,10 @@ import {
   PokemonWiki,
   SomePokemonResponse,
 } from '../utils/Types'
-import { PokemonContainer } from '../components/PokemonContainer/PokemonContainer'
+import {
+  PokemonContainer,
+  PokemonItems,
+} from '../components/PokemonContainer/PokemonContainer'
 import { FC, useEffect } from 'react'
 import React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -95,10 +98,8 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
     getNextPageParam: (lastPage, pages) => lastPage.numNextPokemonPage,
   })
 
-  const fetchNextPokemons = () => fetchNextPage()
-
-  const [, infiniteScroll] = useDebounce(() => fetchNextPokemons(), 20, [
-    fetchNextPokemons,
+  const [, infiniteScroll] = useDebounce(() => () => fetchNextPage(), 20, [
+    fetchNextPage,
   ])
 
   /*useEffect(() => {
@@ -126,14 +127,14 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
           Pokemon Wiki
         </Heading>
       </Center>
-      {data?.pages.map((somePokemon, i) => (
-        <React.Fragment key={i}>
-          <PokemonContainer
+      <PokemonContainer>
+        {data?.pages.map((somePokemon, i) => (
+          <PokemonItems
             key={`pokemonContainer${i}`}
             pokemons={somePokemon.allPokemons}
           />
-        </React.Fragment>
-      ))}
+        ))}
+      </PokemonContainer>
       <Center marginTop="1rem" marginBottom="2rem">
         <Button
           isLoading={isFetchingNextPage}

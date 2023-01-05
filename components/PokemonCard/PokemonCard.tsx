@@ -1,46 +1,29 @@
-import { Box, Center, Heading, Image, Stack } from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
 import React, { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
+import style from '../PokemonCard/PokemonCard.module.css'
 
 const PokemonCard: React.FunctionComponent<
   PropsWithChildren<PokemonCardProp>
 > = ({ pokemonData, cardConfig, children }) => {
   return (
-    <Center py={6}>
-      <Box
-        maxW={'445px'}
-        w={'full'}
-        boxShadow={'2xl'}
-        rounded={'md'}
-        p={6}
-        overflow={'hidden'}
+    <div className={style['cardcontainer']}>
+      <div
+        className={style['cardHeader']}
+        // bg={cardConfig.cardColor ? cardConfig.cardColor : `white.100`}
       >
-        <Center
-          h={'210px'}
-          bg={cardConfig.cardColor ? cardConfig.cardColor : `white.100`}
-          mt={-6}
-          mx={-6}
-          mb={6}
-          pos={'relative'}
-        >
-          <Image
-            src={cardConfig.cardImage}
-            h="210px"
-            objectFit="cover"
-            alt={cardConfig.cardAltImage}
-          />
-        </Center>
-        <Stack>
-          <Heading
-            fontSize={'2xl'}
-            fontFamily={'body'}
-            textTransform="capitalize"
-          >
-            {children}
-          </Heading>
-        </Stack>
-      </Box>
-    </Center>
+        <Image
+          src={cardConfig.cardImage}
+          h="210px"
+          objectFit="cover"
+          alt={cardConfig.cardAltImage}
+          className={style['center']}
+        />
+      </div>
+      <div>
+        <div>{children}</div>
+      </div>
+    </div>
   )
 }
 

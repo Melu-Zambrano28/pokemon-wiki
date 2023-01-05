@@ -1,65 +1,46 @@
-import { Badge, Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
-import { getBGColorByPokemonType } from '../../utils/fnUtils'
+import { Grid, GridItem } from '@chakra-ui/react'
+import { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
+import { PokemonCardBody } from '../PokemonCardBody/PokemonCardBody'
 import { PokemonCardLink } from '../PokemonCardLink/PokemonCardLink'
 
 type PokemonContainer = {
   pokemons: PokemonCardProp[]
 }
 
-const PokemonContainer: React.FunctionComponent<PokemonContainer> = ({
-  pokemons,
+const PokemonContainer: React.FunctionComponent<PropsWithChildren> = ({
+  children,
 }) => {
   return (
-    <Box>
-      <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
-        {pokemons.map((pokemon, pokeIndex) => {
-          return (
-            <GridItem key={`pokemonContainerGridITem${pokeIndex}`}>
-              <PokemonCardLink
-                href={{
-                  pathname: '/pokemon-wiki/[name]',
-                  query: { name: pokemon.pokemonData.pokemonName },
-                }}
-                pokemonData={pokemon.pokemonData}
-                cardConfig={pokemon.cardConfig}
-              >
-                <Box key={`pokemoncontainerBox${pokeIndex}`}>
-                  <Heading size="xs">{pokemon.pokemonData.pokemonId}</Heading>
-                  <Flex
-                    key={`pokemonFlexContainerBadge${pokeIndex}`}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    gap={2}
-                  >
-                    <Box>{pokemon.pokemonData.pokemonName}</Box>
-                    <Box>
-                      <Flex key={`pokemonFlexItemBadge${pokeIndex}`} gap={1}>
-                        {pokemon.pokemonData.pokemonType?.map((pokemonType) => {
-                          const colorBadge = getBGColorByPokemonType(
-                            pokemonType.type.name,
-                          )
-                          return (
-                            <Badge
-                              key={`pokemonBadgeType${pokemonType.type.name}-${pokeIndex}`}
-                              bg={colorBadge}
-                              color="white"
-                            >
-                              {pokemonType.type.name}
-                            </Badge>
-                          )
-                        })}
-                      </Flex>
-                    </Box>
-                  </Flex>
-                </Box>
-              </PokemonCardLink>
-            </GridItem>
-          )
-        })}
-      </Grid>
-    </Box>
+    <Grid templateColumns="repeat(3, 25rem)" justifyContent="center" gap={5}>
+      {children}
+    </Grid>
   )
 }
 
-export { PokemonContainer }
+const PokemonItems: React.FunctionComponent<PokemonContainer> = ({
+  pokemons,
+}) => {
+  return (
+    <>
+      {pokemons.map((pokemon, pokeIndex) => {
+        return (
+          <div key={`pokemonContainerGridITem${pokeIndex}`}>
+            <PokemonCardLink
+              href={{
+                pathname: '/pokemon-wiki/[name]',
+                query: { name: pokemon.pokemonData.pokemonName },
+              }}
+              pokemonData={pokemon.pokemonData}
+              cardConfig={pokemon.cardConfig}
+            >
+              <PokemonCardBody pokemonData={pokemon.pokemonData} />
+            </PokemonCardLink>
+          </div>
+        )
+      })}
+    </>
+  )
+}
+
+export { PokemonContainer, PokemonItems }

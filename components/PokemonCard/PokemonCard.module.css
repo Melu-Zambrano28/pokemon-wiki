@@ -1,0 +1,16 @@
+.cardcontainer {
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 3px 10px 0 #aaa;
+}
+
+.cardHeader {
+    margin: -1px;
+    background-color: antiquewhite;
+}
+
+.center {
+    margin: 0 auto;
+    padding: 15px;
+}
