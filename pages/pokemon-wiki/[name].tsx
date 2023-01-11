@@ -1,9 +1,10 @@
-import { Box, Grid, GridItem, SimpleGrid } from '@chakra-ui/react'
 import { GetServerSideProps, NextPage } from 'next'
 import { PokemonCard } from '../../components/PokemonCard/PokemonCard'
 import { getBGColorByPokemonTypes } from '../../utils/fnUtils'
 
 import { PokemonWiki, PokemonWikiQuery } from '../../utils/Types'
+import style from '../../styles/namePokemonPage.module.scss'
+import { PokemonContainer } from '../../components/PokemonContainer/PokemonContainer'
 
 const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
   return fetch(`${process.env['NEXT_PUBLIC_POKE_API_URL']}/${pokemonName}`)
@@ -47,88 +48,71 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
   }
 
   return (
-    <>
-      <Grid
-        templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
-        gridTemplateRows={'auto 1fr auto'}
-        gridTemplateColumns={'445px 1fr'}
-        gap="1"
-        color="blackAlpha.700"
-        fontWeight="bold"
-        maxH="100vh"
-      >
-        <GridItem pl="2" bg="" area={'header'}>
-          {`Pokemon Wiki`}
-        </GridItem>
-        <GridItem pl="2" area={'nav'}>
-          <PokemonCard
-            pokemonData={pokemonData}
-            cardConfig={{
-              cardImage: sprites.front_default,
-              cardAltImage: name,
-              cardColor: color,
-            }}
-          >
-            {`${pokemonData.pokemonId}.${pokemonData.pokemonName}`}
-          </PokemonCard>
+    <div className={style['containerGrid']}>
+      <div>
+        <h1>{`Pokemon Wiki`}</h1>
+      </div>
 
-          <SimpleGrid columns={2} spacing={10}>
+      <div className={style['main']}>
+        <div>
+          {' '}
+          col 1
+          <PokemonContainer>
+            <PokemonCard
+              pokemonData={pokemonData}
+              cardConfig={{
+                cardImage: sprites.front_default,
+                cardAltImage: name,
+                cardColor: color,
+              }}
+            >
+              {`${pokemonData.pokemonId}.${pokemonData.pokemonName}`}
+            </PokemonCard>
+
             {sprites.front_female && (
-              <Box>
-                <PokemonCard
-                  pokemonData={pokemonData}
-                  cardConfig={{
-                    cardImage: sprites.front_female,
-                    cardAltImage: `${name} Female`,
-                    cardColor: color,
-                  }}
-                >
-                  {`Female`}
-                </PokemonCard>
-              </Box>
+              <PokemonCard
+                pokemonData={pokemonData}
+                cardConfig={{
+                  cardImage: sprites.front_female,
+                  cardAltImage: `${name} Female`,
+                  cardColor: color,
+                }}
+              >
+                {`Female`}
+              </PokemonCard>
             )}
 
             {sprites.front_shiny && (
-              <Box>
-                <PokemonCard
-                  pokemonData={pokemonData}
-                  cardConfig={{
-                    cardImage: sprites.front_shiny,
-                    cardAltImage: `${name} Front Shiny`,
-                    cardColor: color,
-                  }}
-                >
-                  {`Front Shiny`}
-                </PokemonCard>
-              </Box>
+              <PokemonCard
+                pokemonData={pokemonData}
+                cardConfig={{
+                  cardImage: sprites.front_shiny,
+                  cardAltImage: `${name} Front Shiny`,
+                  cardColor: color,
+                }}
+              >
+                {`Front Shiny`}
+              </PokemonCard>
             )}
 
             {sprites.back_shiny && (
-              <Box>
-                <PokemonCard
-                  pokemonData={pokemonData}
-                  cardConfig={{
-                    cardImage: sprites.back_shiny,
-                    cardAltImage: `${name} Back Shiny`,
-                    cardColor: color,
-                  }}
-                >
-                  {`Back Shiny`}
-                </PokemonCard>
-              </Box>
+              <PokemonCard
+                pokemonData={pokemonData}
+                cardConfig={{
+                  cardImage: sprites.back_shiny,
+                  cardAltImage: `${name} Back Shiny`,
+                  cardColor: color,
+                }}
+              >
+                {`Back Shiny`}
+              </PokemonCard>
             )}
-          </SimpleGrid>
-        </GridItem>
-        <GridItem pl="2" area={'main'}>
-          Main
-        </GridItem>
-        <GridItem pl="2" area={'footer'}>
-          Footer
-        </GridItem>
-      </Grid>
-    </>
+          </PokemonContainer>
+        </div>
+        <div>col 2</div>
+      </div>
+      <div>Footer</div>
+    </div>
   )
 }
 

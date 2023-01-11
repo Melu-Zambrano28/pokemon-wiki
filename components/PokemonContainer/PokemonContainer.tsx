@@ -11,7 +11,7 @@ type PokemonContainer = {
 const PokemonContainer: React.FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  return <div className={style['container-Grid']}>{children}</div>
+  return <div className={style['containerGrid']}>{children}</div>
 }
 
 const PokemonItems: React.FunctionComponent<PokemonContainer> = ({
