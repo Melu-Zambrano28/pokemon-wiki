@@ -1,6 +1,5 @@
-import { Box } from '@chakra-ui/layout'
-import { Button, Center, Heading, useControllableProp } from '@chakra-ui/react'
-import { getBGColorByPokemonTypes } from '../utils/fnUtils'
+import { Button } from '@chakra-ui/react'
+import { getClassNameByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import reporter from 'io-ts-reporters'
 import {
@@ -78,14 +77,14 @@ const getPokemonCards = async (
         },
         cardConfig: {
           cardAltImage: pokemonName,
-          cardColor: getBGColorByPokemonTypes(data.types),
+          cardHeaderClasses: getClassNameByPokemonTypes(data.types),
           cardImage: data.sprites.other.dream_world.front_default,
         },
       }
     })
 }
 
-const Home: FC<PokemonContainer> = ({ pokemons }) => {
+const Home: FC<PokemonContainer> = ({}) => {
   const {
     data,
     error,
@@ -117,16 +116,10 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
   ) : status === 'error' ? (
     <p>Error: {JSON.stringify(error)}</p>
   ) : (
-    <Box>
-      <Center margin="2rem">
-        <Heading
-          fontSize={'2xl'}
-          fontFamily={'body'}
-          textTransform="capitalize"
-        >
-          Pokemon Wiki
-        </Heading>
-      </Center>
+    <div>
+      <div>
+        <h1>Pokemon Wiki</h1>
+      </div>
       <PokemonContainer>
         {data?.pages.map((somePokemon, i) => (
           <PokemonItems
@@ -135,7 +128,7 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
           />
         ))}
       </PokemonContainer>
-      <Center marginTop="1rem" marginBottom="2rem">
+      <div>
         <Button
           isLoading={isFetchingNextPage}
           loadingText="Loading more..."
@@ -147,9 +140,9 @@ const Home: FC<PokemonContainer> = ({ pokemons }) => {
         >
           {hasNextPage ? 'Load More Pokemons' : 'Nothing more to load'}
         </Button>
-      </Center>
+      </div>
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
-    </Box>
+    </div>
   )
 }
 

@@ -47,4 +47,19 @@ const getBGColorByPokemonType = (pokemonType: string) => {
   return pokemonTypeAndColor.get(pokemonType.toLocaleUpperCase())
 }
 
-export { getBGColor, getBGColorByPokemonTypes, getBGColorByPokemonType }
+const getClassNameByPokemonTypes = (
+  pokemonTypes: ReadonlyArray<PokemonType>,
+) => {
+  const colors = pokemonTypes.map((pokemonType) => {
+    return `${pokemonType.type.name}`
+  })
+
+  return colors ? colors[0] : ''
+}
+
+export {
+  getBGColor,
+  getBGColorByPokemonTypes,
+  getBGColorByPokemonType,
+  getClassNameByPokemonTypes,
+}

@@ -1,5 +1,3 @@
-import { Box } from '@chakra-ui/layout'
-import { Center, Heading } from '@chakra-ui/react'
 import type { GetStaticProps, NextPage } from 'next'
 import { getBGColorByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
@@ -14,18 +12,12 @@ import { PokemonContainer } from '../components/PokemonContainer/PokemonContaine
 
 const Home: NextPage<PokemonContainer> = ({ pokemons }) => {
   return (
-    <Box>
-      <Center>
-        <Heading
-          fontSize={'2xl'}
-          fontFamily={'body'}
-          textTransform="capitalize"
-        >
-          Pokemon Wiki
-        </Heading>
-      </Center>
+    <div>
+      <div>
+        <h1>Pokemon Wiki</h1>
+      </div>
       <PokemonContainer pokemons={pokemons} />
-    </Box>
+    </div>
   )
 }
 

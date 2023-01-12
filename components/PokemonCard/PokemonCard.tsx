@@ -9,8 +9,9 @@ const PokemonCard: React.FunctionComponent<
   return (
     <div className={style['cardcontainer']}>
       <div
-        className={style['cardHeader']}
-        // bg={cardConfig.cardColor ? cardConfig.cardColor : `white.100`}
+        className={`${style['cardHeader']} ${
+          style[`${cardConfig.cardHeaderClasses}`]
+        }`}
       >
         <Image
           src={cardConfig.cardImage}

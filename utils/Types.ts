@@ -115,6 +115,7 @@ type CardProps = {
   cardImage: string
   cardAltImage: string
   cardColor?: string
+  cardHeaderClasses?: string
 }
 
 export type SomePokemonResponse = {
