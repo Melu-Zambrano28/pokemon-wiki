@@ -1,4 +1,4 @@
-@import '/styles/globavariables.scss';
+@import '/styles/globalvariables.scss';
 
 .cardcontainer {
     padding: 25px 15px;
@@ -17,41 +17,43 @@
     padding: 15px;
 }
 
-.normal { 
- background-color: #{$yellow900};
-}
-.fire { 
-   background-color: #{$orange100}; 
+.normal {
+    background-color: #{$yellow900};
 }
 
-.water { 
-    background-color: #{$blue100} 
+.fire {
+    background-color: #{$orange100};
 }
-.grass { 
+
+.water {
+    background-color: #{$blue100}
+}
+
+.grass {
     background-color: #{$green100}
 }
-    
-.electric { 
+
+.electric {
     background-color: #{$yellow100}
 }
-    
-.ice { 
+
+.ice {
     background-color: #{$lightBlue100}
 }
-    
-.fighting { 
-    background-color: #{$red100} 
+
+.fighting {
+    background-color: #{$red100}
 }
-    
-.poison { 
+
+.poison {
     background-color: #{$violet300}
 }
 
-.ground { 
+.ground {
     background-color: #{$brown400}
 }
 
-.flying { 
+.flying {
     background-color: #{$violet300}
 }
 
@@ -59,29 +61,30 @@
     background-color: #{$pink100}
 }
 
-.bug { 
+.bug {
     background-color: #{$green100}
 }
 
-.rock { 
+.rock {
     background-color: #{$yellow101}
 }
-    
+
 .ghost {
     background-color: #{$violet901}
 }
 
-.dark { 
+.dark {
     background-color: #{$brown500}
 }
-    
-.dragon { 
+
+.dragon {
     background-color: #{$violet100}
 }
-    
-.steel { 
+
+.steel {
     background-color: #{$gray101}
 }
-.fairy { 
+
+.fairy {
     background-color: #{$pink100}
 }

@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next'
 import { PokemonCard } from '../../components/PokemonCard/PokemonCard'
-import { getBGColorByPokemonTypes } from '../../utils/fnUtils'
+import { getClassNameByPokemonTypes } from '../../utils/fnUtils'
 
 import { PokemonWiki, PokemonWikiQuery } from '../../utils/Types'
 import style from '../../styles/namePokemonPage.module.scss'
@@ -38,7 +38,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
   sprites,
   types,
 }) => {
-  const color = getBGColorByPokemonTypes(types)
+  const cardHeaderClasses = getClassNameByPokemonTypes(types)
 
   const pokemonData = {
     pokemonId: id,
@@ -63,7 +63,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
               cardConfig={{
                 cardImage: sprites.front_default,
                 cardAltImage: name,
-                cardColor: color,
+                cardHeaderClasses: cardHeaderClasses,
               }}
             >
               {`${pokemonData.pokemonId}.${pokemonData.pokemonName}`}
@@ -75,7 +75,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 cardConfig={{
                   cardImage: sprites.front_female,
                   cardAltImage: `${name} Female`,
-                  cardColor: color,
+                  cardHeaderClasses: cardHeaderClasses,
                 }}
               >
                 {`Female`}
@@ -88,7 +88,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 cardConfig={{
                   cardImage: sprites.front_shiny,
                   cardAltImage: `${name} Front Shiny`,
-                  cardColor: color,
+                  cardHeaderClasses: cardHeaderClasses,
                 }}
               >
                 {`Front Shiny`}
@@ -101,7 +101,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 cardConfig={{
                   cardImage: sprites.back_shiny,
                   cardAltImage: `${name} Back Shiny`,
-                  cardColor: color,
+                  cardHeaderClasses: cardHeaderClasses,
                 }}
               >
                 {`Back Shiny`}
