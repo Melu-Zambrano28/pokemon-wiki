@@ -11,7 +11,8 @@
     }
 
     @media (min-width: #{$lg}) {
-        grid-template-columns: repeat(3, 1fr);
+        --min-column-width: min(320px, 100%);
+        grid-template-columns: repeat(auto-fill, minmax(var(--min-column-width), 1fr));
         margin: 0 auto;
         max-width: 78rem;
     }

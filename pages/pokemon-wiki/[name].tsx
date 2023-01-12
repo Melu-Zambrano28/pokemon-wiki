@@ -48,13 +48,13 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
   }
 
   return (
-    <div className={style['containerGrid']}>
+    <div className={style[`containerGrid`]}>
       <div>
         <h1>{`Pokemon Wiki`}</h1>
       </div>
 
-      <div className={style['main']}>
-        <div>
+      <div className={style[`main`]}>
+        <div className={style[`gallery`]}>
           {' '}
           col 1
           <PokemonContainer>
