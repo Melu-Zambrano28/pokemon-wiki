@@ -1,7 +1,6 @@
-import { Badge } from '@chakra-ui/react'
-import { getBGColorByPokemonType } from '../../utils/fnUtils'
 import { PokemonProps } from '../../utils/Types'
 import style from '../PokemonCardBody/PokemonCardBody.module.scss'
+import gobalStyle from '../../styles/globals/styles.module.scss'
 
 type PokemonCardBodyProp = {
   pokemonData: PokemonProps
@@ -18,15 +17,15 @@ const PokemonCardBody: React.FunctionComponent<PokemonCardBodyProp> = ({
         <div>
           <div>
             {pokemonData.pokemonType?.map((pokemonType, typeIndex) => {
-              const colorBadge = getBGColorByPokemonType(pokemonType.type.name)
               return (
-                <Badge
+                <div
+                  className={`${style[`badge-base`]} ${
+                    gobalStyle[`${pokemonType.type.name}`]
+                  } ${gobalStyle[`colorWhite`]}`}
                   key={`pokemonBadgeType${pokemonType.type.name}-${typeIndex}`}
-                  bg={colorBadge}
-                  color="white"
                 >
                   {pokemonType.type.name}
-                </Badge>
+                </div>
               )
             })}
           </div>

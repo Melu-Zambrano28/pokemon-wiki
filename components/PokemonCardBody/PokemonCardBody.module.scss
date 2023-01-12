@@ -1,3 +1,5 @@
+@import '/styles/globals/variables.module.scss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -9,4 +11,16 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.badge-base {
+    display: inline-block;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding-inline-start: 0.25rem;
+    padding-inline-end: 0.25rem;
+    text-transform: uppercase;
+    font-size: $fontSize-xs;
+    border-radius: 0.125rem;
+    font-weight: bold;
 }

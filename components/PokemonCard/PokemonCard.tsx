@@ -2,6 +2,7 @@ import { Image } from '@chakra-ui/react'
 import React, { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
 import style from '../PokemonCard/PokemonCard.module.scss'
+import globalStyle from '../../styles/globals/styles.module.scss'
 
 const PokemonCard: React.FunctionComponent<
   PropsWithChildren<PokemonCardProp>
@@ -10,7 +11,7 @@ const PokemonCard: React.FunctionComponent<
     <div className={style['cardcontainer']}>
       <div
         className={`${style['cardHeader']} ${
-          style[`${cardConfig.cardHeaderClasses}`]
+          globalStyle[`${cardConfig.cardHeaderClasses}`]
         }`}
       >
         <Image

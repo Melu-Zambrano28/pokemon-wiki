@@ -1,0 +1,86 @@
+@import '/styles/globals/variables.module.scss';
+
+
+.center {
+    margin: 0 auto;
+}
+
+.normal {
+    background-color: #{$yellow900};
+}
+
+.fire {
+    background-color: #{$orange100};
+}
+
+.water {
+    background-color: #{$blue100}
+}
+
+.grass {
+    background-color: #{$green100}
+}
+
+.electric {
+    background-color: #{$yellow100}
+}
+
+.ice {
+    background-color: #{$lightBlue100}
+}
+
+.fighting {
+    background-color: #{$red100}
+}
+
+.poison {
+    background-color: #{$violet300}
+}
+
+.ground {
+    background-color: #{$brown400}
+}
+
+.flying {
+    background-color: #{$violet300}
+}
+
+.psychic {
+    background-color: #{$pink100}
+}
+
+.bug {
+    background-color: #{$green100}
+}
+
+.rock {
+    background-color: #{$yellow101}
+}
+
+.ghost {
+    background-color: #{$violet901}
+}
+
+.dark {
+    background-color: #{$brown500}
+}
+
+.dragon {
+    background-color: #{$violet100}
+}
+
+.steel {
+    background-color: #{$gray101}
+}
+
+.fairy {
+    background-color: #{$pink100}
+}
+
+.bgDefault {
+    background-color: antiquewhite
+}
+
+.colorWhite {
+    color: white;
+}

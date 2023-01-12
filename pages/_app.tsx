@@ -1,3 +1,4 @@
+import 'modern-normalize'
 import '../styles/globals.scss'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
