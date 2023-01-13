@@ -16,6 +16,7 @@ import { FC, useEffect } from 'react'
 import React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDebounce } from 'react-use'
+import globalStyle from '../styles/globals/styles.module.scss'
 
 const getSomePokemon =
   (limit: number) =>
@@ -117,7 +118,7 @@ const Home: FC<PokemonContainer> = ({}) => {
     <p>Error: {JSON.stringify(error)}</p>
   ) : (
     <div>
-      <div>
+      <div className={`${globalStyle[`centerHeader`]}`}>
         <h1>Pokemon Wiki</h1>
       </div>
       <PokemonContainer>

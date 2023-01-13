@@ -5,6 +5,24 @@
     margin: 0 auto;
 }
 
+
+
+.centerHeader {
+    text-align: center;
+    margin: 1rem 1rem 2rem;
+    padding: 5px;
+    font-family: --Libre_Baskerville;
+    font-size: $fontSize-sm;
+
+    @media (min-width: #{$md}) {
+      font-size: $fontSize-md;
+    }
+
+    @media (min-width: #{$lg}) {
+        font-size: $fontSize-lg;
+      }
+}
+
 .normal {
     background-color: #{$yellow900};
 }

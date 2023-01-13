@@ -5,6 +5,7 @@ import { getClassNameByPokemonTypes } from '../../utils/fnUtils'
 import { PokemonWiki, PokemonWikiQuery } from '../../utils/Types'
 import style from '../../styles/namePokemonPage.module.scss'
 import { PokemonContainer } from '../../components/PokemonContainer/PokemonContainer'
+import globalStyle from '../../styles/globals/styles.module.scss'
 
 const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
   return fetch(`${process.env['NEXT_PUBLIC_POKE_API_URL']}/${pokemonName}`)
@@ -49,7 +50,7 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
 
   return (
     <div className={style[`containerGrid`]}>
-      <div>
+      <div className={`${globalStyle[`centerHeader`]}`}>
         <h1>{`Pokemon Wiki`}</h1>
       </div>
 
