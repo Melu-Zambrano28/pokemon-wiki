@@ -7,8 +7,6 @@ import { Inter } from '@next/font/google'
 
 const inter = Inter({
   variable: '--inter-font',
-  weight: '200',
-  subsets: ['latin'],
 })
 
 const queryClient = new QueryClient()

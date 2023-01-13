@@ -1,4 +1,4 @@
-import { Image } from '@chakra-ui/react'
+import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
 import style from '../PokemonCard/PokemonCard.module.scss'
@@ -15,11 +15,12 @@ const PokemonCard: React.FunctionComponent<
         }`}
       >
         <Image
+          width={-1}
+          height={-1}
+          loader={() => cardConfig.cardImage}
           src={cardConfig.cardImage}
-          h="210px"
-          objectFit="cover"
-          alt={cardConfig.cardAltImage}
-          className={style['center']}
+          alt={`${cardConfig.cardAltImage}`}
+          className={style['cardImage']}
         />
       </div>
       <div>{children}</div>

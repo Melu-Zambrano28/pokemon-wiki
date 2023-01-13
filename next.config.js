@@ -6,9 +6,12 @@ const nextConfig = {
     fontLoaders: [
       {
         loader: '@next/font/google',
-        options: { subsets: ['latin'], weight: ['200', '300', '800'] },
+        options: { subsets: ['latin'], weight: ['400', '300', '800'] },
       },
     ],
+  },
+  images: {
+    unoptimized: true,
   },
 }
 

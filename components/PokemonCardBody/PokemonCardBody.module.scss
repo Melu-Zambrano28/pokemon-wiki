@@ -6,14 +6,14 @@
     flex-wrap: wrap;
 }
 
-.body-details {
+.bodyDetails {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
-.badge-base {
+.badgeBase {
     display: inline-block;
     white-space: nowrap;
     vertical-align: middle;
@@ -23,4 +23,8 @@
     font-size: $fontSize-xs;
     border-radius: 0.125rem;
     font-weight: bold;
+}
+
+.title {
+    text-transform: capitalize;
 }

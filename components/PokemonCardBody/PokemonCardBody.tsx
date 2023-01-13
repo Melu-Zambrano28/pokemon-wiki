@@ -10,16 +10,16 @@ const PokemonCardBody: React.FunctionComponent<PokemonCardBodyProp> = ({
   pokemonData,
 }) => {
   return (
-    <div className={style['container']}>
+    <div className={`${style['container']}`}>
       <h2>{pokemonData.pokemonId}</h2>
-      <div className={style['body-details']}>
+      <div className={`${style['bodyDetails']}`}>
         <h2>{pokemonData.pokemonName}</h2>
         <div>
           <div>
             {pokemonData.pokemonType?.map((pokemonType, typeIndex) => {
               return (
                 <div
-                  className={`${style[`badge-base`]} ${
+                  className={`${style[`badgeBase`]} ${
                     gobalStyle[`${pokemonType.type.name}`]
                   } ${gobalStyle[`colorWhite`]}`}
                   key={`pokemonBadgeType${pokemonType.type.name}-${typeIndex}`}

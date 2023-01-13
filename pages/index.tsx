@@ -129,7 +129,7 @@ const Home: FC<PokemonContainer> = ({}) => {
           />
         ))}
       </PokemonContainer>
-      <div>
+      <div className={`${globalStyle[`btnContainer`]}`}>
         <Button
           isLoading={isFetchingNextPage}
           loadingText="Loading more..."
