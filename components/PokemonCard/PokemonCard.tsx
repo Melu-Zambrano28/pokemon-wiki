@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React, { PropsWithChildren } from 'react'
 import { PokemonCardProp } from '../../utils/Types'
 import style from '../PokemonCard/PokemonCard.module.scss'
@@ -14,10 +13,7 @@ const PokemonCard: React.FunctionComponent<
           globalStyle[`${cardConfig.cardHeaderClasses}`]
         }`}
       >
-        <Image
-          width={-1}
-          height={-1}
-          loader={() => cardConfig.cardImage}
+        <img
           src={cardConfig.cardImage}
           alt={`${cardConfig.cardAltImage}`}
           className={style['cardImage']}
