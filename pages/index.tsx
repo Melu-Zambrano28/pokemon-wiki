@@ -1,4 +1,3 @@
-import { Button } from '@chakra-ui/react'
 import { getClassNameByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import reporter from 'io-ts-reporters'
@@ -9,7 +8,7 @@ import {
   SomePokemonResponse,
 } from '../utils/Types'
 
-import { FC, useEffect } from 'react'
+import { FC, Fragment, useEffect } from 'react'
 import React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDebounce } from 'react-use'
@@ -17,6 +16,8 @@ import globalStyle from '../styles/globals/styles.module.scss'
 import { CardsLayout } from '../components/CardsLayout/CardsLayout'
 import { CardLink } from '../components/CardLink/CardLink'
 import { CardBody } from '../components/CardBody/CardBody'
+import { Button } from '../components/Button/Button'
+import { BasicSpinner } from '../components/Spinners/BasicSpinner/BasicSpinner'
 
 const getSomePokemon =
   (limit: number) =>
@@ -120,10 +121,11 @@ const Home: FC<CardProp[]> = ({}) => {
     <div>
       <div className={`${globalStyle[`centerHeader`]}`}>
         <h1>Pokemon Wiki</h1>
+        <BasicSpinner />
       </div>
       <CardsLayout>
-        {data?.pages.map((somePokemonResponse) => (
-          <>
+        {data?.pages.map((somePokemonResponse, somPokemonIdx) => (
+          <Fragment key={`divContainerpokemonCardLinkITem${somPokemonIdx}`}>
             {somePokemonResponse.allPokemons.map((pokemon, _) => {
               return (
                 <CardLink
@@ -135,24 +137,26 @@ const Home: FC<CardProp[]> = ({}) => {
                   pokemonData={pokemon.pokemonData}
                   cardConfig={pokemon.cardConfig}
                 >
-                  <CardBody pokemonData={pokemon.pokemonData} />
+                  <CardBody
+                    key={`pokemonCardBodyLinkITem${_}`}
+                    pokemonData={pokemon.pokemonData}
+                  />
                 </CardLink>
               )
             })}
-          </>
+          </Fragment>
         ))}
       </CardsLayout>
       <div className={`${globalStyle[`btnContainer`]}`}>
         <Button
-          isLoading={isFetchingNextPage}
-          loadingText="Loading more..."
-          colorScheme="teal"
-          variant="outline"
-          spinnerPlacement="start"
           onClick={() => fetchNextPage()}
           disabled={!hasNextPage || isFetchingNextPage}
+          btnType={`secondary`}
+          ghost
         >
-          {hasNextPage ? 'Load More Pokemons' : 'Nothing more to load'}
+          {isFetchingNextPage && 'Loading More Pokemons..'}
+          {hasNextPage && !isFetchingNextPage && 'Load More Pokemons'}
+          {!hasNextPage && !isFetchingNextPage && 'Nothing more to load'}
         </Button>
       </div>
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
