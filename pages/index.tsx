@@ -15,10 +15,8 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDebounce } from 'react-use'
 import globalStyle from '../styles/globals/styles.module.scss'
 import { CardsLayout } from '../components/CardsLayout/CardsLayout'
-import {
-  CardLinkItems,
-  CardLinkItemsProps,
-} from '../components/CardLinkItems/CardLinkItems'
+import { CardLink } from '../components/CardLink/CardLink'
+import { CardBody } from '../components/CardBody/CardBody'
 
 const getSomePokemon =
   (limit: number) =>
@@ -87,7 +85,7 @@ const getPokemonCards = async (
     })
 }
 
-const Home: FC<CardLinkItemsProps> = ({}) => {
+const Home: FC<CardProp[]> = ({}) => {
   const {
     data,
     error,
@@ -124,11 +122,24 @@ const Home: FC<CardLinkItemsProps> = ({}) => {
         <h1>Pokemon Wiki</h1>
       </div>
       <CardsLayout>
-        {data?.pages.map((somePokemon, i) => (
-          <CardLinkItems
-            key={`pokemonContainer${i}`}
-            pokemons={somePokemon.allPokemons}
-          />
+        {data?.pages.map((somePokemonResponse) => (
+          <>
+            {somePokemonResponse.allPokemons.map((pokemon, _) => {
+              return (
+                <CardLink
+                  key={`pokemonCardLinkITem${_}`}
+                  href={{
+                    pathname: '/pokemon-wiki/[name]',
+                    query: { name: pokemon.pokemonData.pokemonName },
+                  }}
+                  pokemonData={pokemon.pokemonData}
+                  cardConfig={pokemon.cardConfig}
+                >
+                  <CardBody pokemonData={pokemon.pokemonData} />
+                </CardLink>
+              )
+            })}
+          </>
         ))}
       </CardsLayout>
       <div className={`${globalStyle[`btnContainer`]}`}>
