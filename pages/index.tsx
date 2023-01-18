@@ -121,8 +121,8 @@ const Home: FC<CardProp[]> = ({}) => {
     <div>
       <div className={`${globalStyle[`centerHeader`]}`}>
         <h1>Pokemon Wiki</h1>
-        <BasicSpinner />
       </div>
+
       <CardsLayout>
         {data?.pages.map((somePokemonResponse, somPokemonIdx) => (
           <Fragment key={`divContainerpokemonCardLinkITem${somPokemonIdx}`}>
@@ -154,6 +154,7 @@ const Home: FC<CardProp[]> = ({}) => {
           btnType={`secondary`}
           ghost
         >
+          <BasicSpinner />
           {isFetchingNextPage && 'Loading More Pokemons..'}
           {hasNextPage && !isFetchingNextPage && 'Load More Pokemons'}
           {!hasNextPage && !isFetchingNextPage && 'Nothing more to load'}

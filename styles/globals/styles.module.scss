@@ -11,15 +11,15 @@
     padding: 5px;
     font-family: --Libre_Baskerville;
     font-size: $fontSize-sm;
-    background-color: black;
+
 
     @media (min-width: #{$md}) {
-      font-size: $fontSize-md;
+        font-size: $fontSize-md;
     }
 
     @media (min-width: #{$lg}) {
         font-size: $fontSize-lg;
-      }
+    }
 }
 
 .normal {
@@ -109,5 +109,3 @@
     flex-wrap: wrap;
     justify-content: center;
 }
-
-
