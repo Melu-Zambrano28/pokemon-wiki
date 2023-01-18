@@ -1,14 +1,12 @@
 import { PokemonProps } from '../../utils/Types'
-import style from '../PokemonCardBody/PokemonCardBody.module.scss'
+import style from '../CardBody/CardBody.module.scss'
 import gobalStyle from '../../styles/globals/styles.module.scss'
 
-type PokemonCardBodyProp = {
+type CardBodyProp = {
   pokemonData: PokemonProps
 }
 
-const PokemonCardBody: React.FunctionComponent<PokemonCardBodyProp> = ({
-  pokemonData,
-}) => {
+const CardBody: React.FunctionComponent<CardBodyProp> = ({ pokemonData }) => {
   return (
     <div className={`${style['container']}`}>
       <h2>{pokemonData.pokemonId}</h2>
@@ -35,4 +33,4 @@ const PokemonCardBody: React.FunctionComponent<PokemonCardBodyProp> = ({
   )
 }
 
-export { PokemonCardBody }
+export { CardBody }

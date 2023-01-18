@@ -1,11 +1,12 @@
 import React, { PropsWithChildren } from 'react'
-import { PokemonCardProp } from '../../utils/Types'
-import style from '../PokemonCard/PokemonCard.module.scss'
+import { CardProp } from '../../utils/Types'
+import style from '../Card/Card.module.scss'
 import globalStyle from '../../styles/globals/styles.module.scss'
 
-const PokemonCard: React.FunctionComponent<
-  PropsWithChildren<PokemonCardProp>
-> = ({ cardConfig, children }) => {
+const Card: React.FunctionComponent<PropsWithChildren<CardProp>> = ({
+  cardConfig,
+  children,
+}) => {
   return (
     <div className={style['cardcontainer']}>
       <div
@@ -24,4 +25,4 @@ const PokemonCard: React.FunctionComponent<
   )
 }
 
-export { PokemonCard }
+export { Card }

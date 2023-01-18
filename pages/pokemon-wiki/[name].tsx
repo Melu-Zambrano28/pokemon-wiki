@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from 'next'
-import { PokemonCard } from '../../components/PokemonCard/PokemonCard'
+import { Card } from '../../components/Card/Card'
 import { getClassNameByPokemonTypes } from '../../utils/fnUtils'
 
 import { PokemonWiki, PokemonWikiQuery } from '../../utils/Types'
-import style from '../../styles/namePokemonPage.module.scss'
-import { PokemonContainer } from '../../components/PokemonContainer/PokemonContainer'
+import style from '../../styles/pokemonWikiPages.module.scss'
 import globalStyle from '../../styles/globals/styles.module.scss'
+import { CardsLayout } from '../../components/CardsLayout/CardsLayout'
 
 const getPokemon = async (pokemonName: string): Promise<PokemonWiki> => {
   return fetch(`${process.env['NEXT_PUBLIC_POKE_API_URL']}/${pokemonName}`)
@@ -58,8 +58,8 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
         <div className={style[`gallery`]}>
           {' '}
           col 1
-          <PokemonContainer>
-            <PokemonCard
+          <CardsLayout>
+            <Card
               pokemonData={pokemonData}
               cardConfig={{
                 cardImage: sprites.front_default,
@@ -68,10 +68,10 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
               }}
             >
               {`${pokemonData.pokemonId}.${pokemonData.pokemonName}`}
-            </PokemonCard>
+            </Card>
 
             {sprites.front_female && (
-              <PokemonCard
+              <Card
                 pokemonData={pokemonData}
                 cardConfig={{
                   cardImage: sprites.front_female,
@@ -80,11 +80,11 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 }}
               >
                 {`Female`}
-              </PokemonCard>
+              </Card>
             )}
 
             {sprites.front_shiny && (
-              <PokemonCard
+              <Card
                 pokemonData={pokemonData}
                 cardConfig={{
                   cardImage: sprites.front_shiny,
@@ -93,11 +93,11 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 }}
               >
                 {`Front Shiny`}
-              </PokemonCard>
+              </Card>
             )}
 
             {sprites.back_shiny && (
-              <PokemonCard
+              <Card
                 pokemonData={pokemonData}
                 cardConfig={{
                   cardImage: sprites.back_shiny,
@@ -106,9 +106,9 @@ const PokemonWikiPage: NextPage<PokemonWiki> = ({
                 }}
               >
                 {`Back Shiny`}
-              </PokemonCard>
+              </Card>
             )}
-          </PokemonContainer>
+          </CardsLayout>
         </div>
         <div>col 2</div>
       </div>

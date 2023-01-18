@@ -3,20 +3,22 @@ import { getClassNameByPokemonTypes } from '../utils/fnUtils'
 import { ProjectEnv } from '../utils/readEnv'
 import reporter from 'io-ts-reporters'
 import {
-  PokemonCardProp,
+  CardProp,
   PokemonsResponse,
   PokemonWiki,
   SomePokemonResponse,
 } from '../utils/Types'
-import {
-  PokemonContainer,
-  PokemonItems,
-} from '../components/PokemonContainer/PokemonContainer'
+
 import { FC, useEffect } from 'react'
 import React from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useDebounce } from 'react-use'
 import globalStyle from '../styles/globals/styles.module.scss'
+import { CardsLayout } from '../components/CardsLayout/CardsLayout'
+import {
+  CardLinkItems,
+  CardLinkItemsProps,
+} from '../components/CardLinkItems/CardLinkItems'
 
 const getSomePokemon =
   (limit: number) =>
@@ -61,7 +63,7 @@ const getPokemons =
 const getPokemonCards = async (
   pokemonName: string,
   url: string,
-): Promise<PokemonCardProp> => {
+): Promise<CardProp> => {
   return fetch(url)
     .then((response) => response.json())
     .then((data) => {
@@ -85,7 +87,7 @@ const getPokemonCards = async (
     })
 }
 
-const Home: FC<PokemonContainer> = ({}) => {
+const Home: FC<CardLinkItemsProps> = ({}) => {
   const {
     data,
     error,
@@ -95,7 +97,7 @@ const Home: FC<PokemonContainer> = ({}) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery(['pokemons'], getPokemons(6), {
-    getNextPageParam: (lastPage, pages) => lastPage.numNextPokemonPage,
+    getNextPageParam: (lastPage) => lastPage.numNextPokemonPage,
   })
 
   const [, infiniteScroll] = useDebounce(() => () => fetchNextPage(), 20, [
@@ -121,14 +123,14 @@ const Home: FC<PokemonContainer> = ({}) => {
       <div className={`${globalStyle[`centerHeader`]}`}>
         <h1>Pokemon Wiki</h1>
       </div>
-      <PokemonContainer>
+      <CardsLayout>
         {data?.pages.map((somePokemon, i) => (
-          <PokemonItems
+          <CardLinkItems
             key={`pokemonContainer${i}`}
             pokemons={somePokemon.allPokemons}
           />
         ))}
-      </PokemonContainer>
+      </CardsLayout>
       <div className={`${globalStyle[`btnContainer`]}`}>
         <Button
           isLoading={isFetchingNextPage}

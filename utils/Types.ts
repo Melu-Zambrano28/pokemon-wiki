@@ -99,7 +99,7 @@ export const PokemonWiki = t.readonly(
 
 export type PokemonWiki = t.TypeOf<typeof PokemonWiki>
 
-export type PokemonCardProp = {
+export type CardProp = {
   pokemonData: PokemonProps
   cardConfig: CardProps
 }
@@ -126,10 +126,10 @@ export type SomePokemonResponse = {
 }
 
 export type PokemonSideProp = {
-  pokemons: PokemonCardProp[]
+  pokemons: CardProp[]
 }
 
 export type PokemonsResponse = {
   numNextPokemonPage: number
-  allPokemons: PokemonCardProp[]
+  allPokemons: CardProp[]
 }
