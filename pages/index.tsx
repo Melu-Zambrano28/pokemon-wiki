@@ -154,10 +154,25 @@ const Home: FC<CardProp[]> = ({}) => {
           btnType={`secondary`}
           ghost
         >
-          <BasicSpinner />
-          {isFetchingNextPage && 'Loading More Pokemons..'}
-          {hasNextPage && !isFetchingNextPage && 'Load More Pokemons'}
-          {!hasNextPage && !isFetchingNextPage && 'Nothing more to load'}
+          <div
+            className={`${globalStyle[`flexRowCenter`]}`}
+            style={{ width: `100%` }}
+          >
+            <div
+              style={{
+                marginRight: `1rem`,
+                display: `${isFetchingNextPage ? 'block' : 'none'}`,
+              }}
+            >
+              <BasicSpinner type="Btn" />
+            </div>
+
+            <div>
+              {isFetchingNextPage && 'Loading More Pokemons..'}
+              {hasNextPage && !isFetchingNextPage && 'Load More Pokemons'}
+              {!hasNextPage && !isFetchingNextPage && 'Nothing more to load'}
+            </div>
+          </div>
         </Button>
       </div>
       <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>

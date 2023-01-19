@@ -6,8 +6,15 @@
     margin: 1rem;
     text-transform: capitalize;
     color: white;
+    white-space: nowrap;
+    line-height: 1.5;
+    user-select: none;
+}
+
+.btn:not(:disabled):not(.disabled){
     cursor: pointer;
 }
+
 
 .primary {
     background-color: var(--primary);
@@ -24,23 +31,22 @@
     border: 2px solid var(--tertiary);
 }
 
-.ghostsecondary:not(:hover) {
-    background-color: transparent;
-    color: var(--secondary);
-}
-
-.btn-ghostsecondary:hover {
-    background-color: var(--secondary);
-    color: white;
-}
-
-
-.ghost:not(:hover) {
+.ghost:not(:hover):not(:active) {
     background-color: transparent;
     color: var(--text-color);
 }
 
 .btn-ghost:hover {
     background-color: var(--ghost-green);
+    color: white;
+}
+
+.ghostsecondary:not(:hover):not(:active):not(:focus):not(:disabled){
+    background-color: transparent;
+    color: var(--secondary);
+}
+
+.btn-ghostsecondary:hover {
+    background-color: var(--secondary);
     color: white;
 }

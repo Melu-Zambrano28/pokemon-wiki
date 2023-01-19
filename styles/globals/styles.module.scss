@@ -12,13 +12,8 @@
     font-family: --Libre_Baskerville;
     font-size: $fontSize-sm;
 
-
     @media (min-width: #{$md}) {
         font-size: $fontSize-md;
-    }
-
-    @media (min-width: #{$lg}) {
-        font-size: $fontSize-lg;
     }
 }
 
@@ -109,3 +104,11 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.flexRowCenter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
